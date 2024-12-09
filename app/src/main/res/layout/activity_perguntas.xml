@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtQuestion"
-        android:layout_marginTop="182dp"
+        android:layout_marginTop="116dp"
         android:columnCount="2"
         android:padding="8dp"
         android:rowCount="2">
