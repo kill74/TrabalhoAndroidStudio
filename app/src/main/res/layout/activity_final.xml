@@ -12,10 +12,10 @@
         android:id="@+id/txtResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="32dp"
         android:text="Resultado Final"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingBottom="32dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtFinalEarnings"
@@ -30,7 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Jogar Novamente"
-        android:backgroundTint="@color/primaryColor"
         android:textColor="@color/white"
         android:layout_marginBottom="16dp" />
 
@@ -39,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sair"
-        android:backgroundTint="@color/secondaryColor"
         android:textColor="@color/white" />
 
 </LinearLayout>
