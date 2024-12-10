@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GuilhermeSales_EduardoPaulino_DWM</string>
+    <string name="logo_description">Logo do Quem Quer Ser Milionário</string>
+    <string name="welcome_text">Bem-vindo ao Quem Quer Ser Milionário!</string>
+    <string name="hint_username">Digite seu nome</string>
+    <string name="easy">Fácil</string>
+    <string name="medium">Médio</string>
+    <string name="hard">Difícil</string>
+    <string name="start_game">Iniciar Jogo</string>
+
 </resources>
