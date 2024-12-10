@@ -1,43 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:background="#001969"> <!--cor de fundo-->
 
-    <TextView
-        android:id="@+id/txtResult"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalCenterGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="32dp"
-        android:text="Resultado Final"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/txtFinalEarnings"
-        android:layout_width="wrap_content"
+
+    <ImageView
+        android:id="@+id/imgResult"
+        android:layout_width="152dp"
+        android:layout_height="163dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="Imagem de Resultado"
+        android:src="@drawable/imagem1"
+        app:layout_constraintBottom_toTopOf="@+id/resultContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/resultContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Você ganhou: €0"
-        android:textSize="18sp"
-        android:paddingBottom="24dp" />
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintTop_toBottomOf="@id/imgResult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnRestart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Jogar Novamente"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnExit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sair"
-        android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/txtResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Resultado Final"
+                    android:textColor="#333333"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtFinalEarnings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Você ganhou: €0"
+                    android:textColor="#4CAF50"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRestart"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Jogar Novamente"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardResult" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sair"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btnRestart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
