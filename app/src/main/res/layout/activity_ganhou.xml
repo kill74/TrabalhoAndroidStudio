@@ -4,27 +4,42 @@
     android:layout_height="match_parent"
     android:background="#001969">
 
+    <!-- Imagem de vitória -->
     <ImageView
-        android:id="@+id/gameOverImage"
+        android:id="@+id/youWonImage"
         android:layout_width="250dp"
         android:layout_height="200dp"
         android:src="@drawable/imagem1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:contentDescription="Game Over" />
+        android:contentDescription="You Won" />
 
+    <!-- Texto de vitória -->
     <TextView
-        android:id="@+id/GameOver"
+        android:id="@+id/youWonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GANHOU!!!"
-        android:textColor="#FF0000"
+        android:text="VOCÊ GANHOU!"
+        android:textColor="#00FF00"
         android:textSize="36sp"
-        android:layout_below="@id/gameOverImage"
+        android:layout_below="@id/youWonImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-black" />
 
+    <!-- Pontuação -->
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Níveis Completados: 0"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_below="@id/youWonText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <!-- Dinheiro Ganho -->
     <TextView
         android:id="@+id/moneyText"
         android:layout_width="wrap_content"
@@ -32,10 +47,11 @@
         android:text="Dinheiro Ganho: 0,00 €"
         android:textColor="#00FF00"
         android:textSize="20sp"
-        android:layout_below="@id/GameOver"
+        android:layout_below="@id/scoreText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
+    <!-- Botão para jogar novamente -->
     <Button
         android:id="@+id/restartButton"
         android:layout_width="200dp"
@@ -46,6 +62,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
+    <!-- Botão para voltar ao menu -->
     <Button
         android:id="@+id/menuButton"
         android:layout_width="200dp"

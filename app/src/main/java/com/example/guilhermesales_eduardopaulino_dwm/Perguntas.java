@@ -24,6 +24,7 @@ public class Perguntas extends AppCompatActivity {
     private String respostaCerta; // Guarda a resposta correta da pergunta atual
     private List<PerguntasDB.Question> perguntasAleatorias; // Lista de perguntas aleatórias
     private int indicePerguntaAtual = 0; // Índice da pergunta atual
+    private int acertosConsecutivos = 0; // Contador de acertos consecutivos
     private CountDownTimer temporizador; // Temporizador para cada pergunta
 
     @Override
@@ -130,13 +131,30 @@ public class Perguntas extends AppCompatActivity {
         if (temporizador != null) temporizador.cancel();
 
         if (respostaSelecionada.equals(respostaCerta)) {
-            premioAtual += 1000; // Adiciona €1000 ao prémio atual
+            acertosConsecutivos++; // Incrementa o número de acertos consecutivos
+            premioAtual += 1000;  // Aumenta o prêmio
             Toast.makeText(this, "Resposta correta! +€1000", Toast.LENGTH_SHORT).show();
-            nivelAtual++; // Avança para o próximo nível
-            indicePerguntaAtual++; // Avança para a próxima pergunta
-            carregarPergunta();
+            nivelAtual++;  // Avança para o próximo nível
+            indicePerguntaAtual++;  // Avança para a próxima pergunta
+
+            // Verificar se o jogador acertou 15 perguntas consecutivas
+            if (acertosConsecutivos == 15) {
+                Intent intent = new Intent(Perguntas.this, Ganhou.class);
+                intent.putExtra("pontos", nivelAtual);
+                intent.putExtra("dinheiro", premioAtual);
+                startActivity(intent);
+                finish();
+            } else {
+                carregarPergunta();  // Carregar a próxima pergunta
+            }
+
         } else {
-            finalizarJogo("Resposta errada! Jogo terminado.");
+            // Se errar, vai para a página de "Perdeu"
+            Intent intent = new Intent(Perguntas.this, Perdeu.class);
+            intent.putExtra("pontos", nivelAtual - 1);  // Envia os pontos conquistados
+            intent.putExtra("dinheiro", premioAtual);  // Envia o valor acumulado
+            startActivity(intent);
+            finish();
         }
     }
 

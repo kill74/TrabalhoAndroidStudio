@@ -1,24 +1,27 @@
 package com.example.guilhermesales_eduardopaulino_dwm;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Ganhou extends AppCompatActivity {
+
+    private TextView txtMensagem, txtDinheiro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ganhou);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        txtMensagem = findViewById(R.id.youWonText);
+        txtDinheiro = findViewById(R.id.moneyText);
+
+        // Receber os pontos e o prêmio do intent
+        int pontos = getIntent().getIntExtra("pontos", 0);
+        int dinheiro = getIntent().getIntExtra("dinheiro", 0);
+
+        txtMensagem.setText("Parabéns, você ganhou!");
+        txtDinheiro.setText("Prêmio total: €" + dinheiro);
     }
 }

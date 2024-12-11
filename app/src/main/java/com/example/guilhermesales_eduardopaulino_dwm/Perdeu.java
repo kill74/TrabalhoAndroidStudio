@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Perdeu extends AppCompatActivity {
 
-    private TextView txtMensagem, txtPontos, txtDinheiro;
+    private TextView txtMensagem, txtDinheiro;
     private Button btnJogarNovamente, btnVoltarMenu;
 
     @Override
@@ -17,17 +17,15 @@ public class Perdeu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perdeu_jogo);
 
-        txtMensagem = findViewById(R.id.GameOver); // Atualize para o ID correto no XML
-        txtDinheiro = findViewById(R.id.moneyText); // Atualize para o ID correto no XML
-        btnJogarNovamente = findViewById(R.id.restartButton); // Atualize para o ID correto no XML
-        btnVoltarMenu = findViewById(R.id.menuButton); // Atualize para o ID correto no XML
+        txtMensagem = findViewById(R.id.GameOver);
+        txtDinheiro = findViewById(R.id.moneyText);
+        btnJogarNovamente = findViewById(R.id.restartButton);
+        btnVoltarMenu = findViewById(R.id.menuButton);
 
         Intent intent = getIntent();
-        int pontos = intent.getIntExtra("pontos", 0);
         int dinheiro = intent.getIntExtra("dinheiro", 0);
 
         txtMensagem.setText("Você perdeu!");
-        txtPontos.setText("Níveis completados: " + pontos);
         txtDinheiro.setText("Prémio total: €" + dinheiro);
 
         btnJogarNovamente.setOnClickListener(v -> {
