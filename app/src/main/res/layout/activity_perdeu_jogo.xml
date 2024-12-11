@@ -26,24 +26,13 @@
         android:fontFamily="sans-serif-black" />
 
     <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pontuação: 0"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_below="@id/GameOver"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-    <TextView
         android:id="@+id/moneyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dinheiro Ganho: 0,00 €"
         android:textColor="#00FF00"
         android:textSize="20sp"
-        android:layout_below="@id/scoreText"
+        android:layout_below="@id/GameOver"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 

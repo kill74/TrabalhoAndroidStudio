@@ -1,6 +1,5 @@
 package com.example.guilhermesales_eduardopaulino_dwm;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -43,6 +42,12 @@ public class Perguntas extends AppCompatActivity {
 
         perguntasDB = new PerguntasDB(this);
 
+        // Recupera o nome do usuário enviado pelo MenuPrincipal
+        String userName = getIntent().getStringExtra("user_name");
+        if (userName != null) {
+            Toast.makeText(this, "Bem-vindo, " + userName + "!", Toast.LENGTH_SHORT).show();
+        }
+
         // Obtém 15 perguntas aleatórias
         randomQuestions = perguntasDB.getRandomQuestions();
 
@@ -65,11 +70,11 @@ public class Perguntas extends AppCompatActivity {
         if (currentQuestionIndex < randomQuestions.size()) {
             PerguntasDB.Question currentQuestion = randomQuestions.get(currentQuestionIndex);
 
-            // Atualiza as informações do nível e prémio
+            // Atualiza as informações do nível e prêmio
             txtLevel.setText("Nível: " + currentLevel);
-            txtEarnings.setText("Prémio: €" + currentEarnings);
+            txtEarnings.setText("Prêmio: €" + currentEarnings);
 
-            // Carrega as perguntas
+            // Carrega a pergunta e as alternativas
             txtQuestion.setText(currentQuestion.getQuestion());
             btnAnswer1.setText(currentQuestion.getAnswer1());
             btnAnswer2.setText(currentQuestion.getAnswer2());
@@ -82,7 +87,7 @@ public class Perguntas extends AppCompatActivity {
             iniciarTimer(30000);
         } else {
             // Todas as perguntas foram respondidas
-            Toast.makeText(this, "Parabéns! Prémio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Parabéns! Prêmio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
             finish();
         }
     }
@@ -115,14 +120,14 @@ public class Perguntas extends AppCompatActivity {
 
         if (respostaSelecionada.equals(correctAnswer)) {
             currentEarnings += 1000; // Cada resposta correta vale €1000
-            Toast.makeText(this, "Resposta correta! Ganhou €1000.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Resposta correta! Você ganhou €1000.", Toast.LENGTH_SHORT).show();
 
             if (currentLevel < 5) { // Avança para o próximo nível
                 currentLevel++;
                 currentQuestionIndex++;
                 carregarPergunta();
             } else { // Jogo completo
-                Toast.makeText(this, "Parabéns! Prémio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Parabéns! Prêmio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
                 finish();
             }
         } else {
@@ -133,9 +138,12 @@ public class Perguntas extends AppCompatActivity {
 
     // Troca a pergunta atual por outra
     private void trocarPergunta() {
-        // Pula para a próxima pergunta
-        currentQuestionIndex++;
-        carregarPergunta();
+        if (currentQuestionIndex < randomQuestions.size() - 1) {
+            currentQuestionIndex++;
+            carregarPergunta();
+        } else {
+            Toast.makeText(this, "Não há mais perguntas para trocar.", Toast.LENGTH_SHORT).show();
+        }
         btnHelpSwitch.setEnabled(false); // Desativa o botão de ajuda
     }
 }
