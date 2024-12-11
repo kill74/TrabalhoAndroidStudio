@@ -1,3 +1,5 @@
+package com.example.guilhermesales_eduardopaulino_dwm;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,12 +30,13 @@ public class MenuPrincipal extends AppCompatActivity {
         rgDifficulty = findViewById(R.id.rgDifficulty);
         Button btnStart = findViewById(R.id.btnStart);
 
+        // Verifica se os componentes estão carregados
         if (edtUserName == null || rgDifficulty == null || btnStart == null) {
             Toast.makeText(this, "Erro ao carregar os componentes da interface", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // Configura o botão
+        // Configura o botão "Iniciar"
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,15 +60,16 @@ public class MenuPrincipal extends AppCompatActivity {
         if (selectedButton != null) {
             return selectedButton.getText().toString();
         }
-        return "Indefinida"; // Fallback para evitar null pointer
+        return "Indefinida"; // Evita null pointer
     }
 
     private void saveUserNameAndStartGame(String userName, String difficulty) {
-        // Adiciona o nome ao banco de dados
+        // Salva o nome no banco de dados
         long result = databaseHelper.addUser(userName);
         if (result > 0) {
             Toast.makeText(this, "Nome salvo com sucesso!", Toast.LENGTH_SHORT).show();
-            // Inicia a próxima atividade e passa o nome e a dificuldade do usuário
+
+            // Inicia a atividade "Perguntas" e passa os dados
             Intent intent = new Intent(this, Perguntas.class);
             intent.putExtra("user_name", userName);
             intent.putExtra("difficulty", difficulty);

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#001969">
 
+    <!-- Cabeçalho com Nível, Timer e Prêmio -->
     <LinearLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
@@ -24,6 +25,17 @@
             android:text="Nível: 1"
             android:textSize="16sp"
             android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <!-- Timer -->
+        <TextView
+            android:id="@+id/txtTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="16sp"
+            android:textColor="#FF0000"
+            android:layout_marginEnd="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -130,6 +142,7 @@
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Botões de ajuda -->
     <LinearLayout
         android:id="@+id/helpButtonsLayout"
         android:layout_width="match_parent"
