@@ -34,7 +34,7 @@ public class PerguntasDB {
         questions.add(new Question("Quem escreveu os Lusiadas ?", "Camões", "Pessoa", "Saramago", "Eça de Queirós", "Camões"));
         questions.add(new Question("Qual é o rio mais longo do mundo?", "Nilo", "Amazonas", "Yangtzé", "Mississípi", "Amazonas"));
         questions.add(new Question("Em que país se encontra a Torre Eiffel?", "Itália", "Espanha", "França", "Inglaterra", "França"));
-        questions.add(new Question("Qual é a língua mais falada no mundo?", "Inglês", "Espanhol", "Chinês", "Hindi", "Chinês"));
+        questions.add(new Question("Qual é a língua mais falada no mundo?", "Inglês", "Espanhol", "Chinês", "Hindi", "Inglês"));
         questions.add(new Question("Qual é o país conhecido como a Terra do Sol Nascente?", "China", "Japão", "Coreia", "Tailândia", "Japão"));
         questions.add(new Question("Qual é o maior mamífero do mundo?", "Elefante", "Baleia-azul", "Hipopótamo", "Rinoceronte", "Baleia-azul"));
         questions.add(new Question("Qual é o órgão mais pesado do corpo humano?", "Cérebro", "Fígado", "Coração", "Pulmão", "Fígado"));
