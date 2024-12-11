@@ -12,28 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GuilhermeSales_EduardoPaulino_DWM"
         tools:targetApi="31">
+        <activity
+            android:name=".Ganhou"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MenuPrincipal"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Perdeu"
             android:exported="true" />
-
         <activity
             android:name=".Final"
             android:exported="true" />
-
         <activity
             android:name=".Perguntas"
             android:exported="true" />
-
     </application>
 
 </manifest>

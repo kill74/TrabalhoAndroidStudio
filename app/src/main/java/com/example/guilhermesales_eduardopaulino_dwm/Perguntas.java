@@ -1,5 +1,6 @@
 package com.example.guilhermesales_eduardopaulino_dwm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -9,19 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Perguntas extends AppCompatActivity {
 
-    private TextView txtLevel, txtEarnings, txtQuestion, txtTimer;
-    private MaterialButton btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4, btnHelpSwitch;
-    private PerguntasDB perguntasDB;
-    private int currentLevel = 1;
-    private int currentEarnings = 0;
-    private String correctAnswer;
-    private List<PerguntasDB.Question> randomQuestions;
-    private int currentQuestionIndex = 0;
-    private CountDownTimer timer;
+    // Declaração de elementos da interface e variáveis principais
+    private TextView txtNivel, txtPremio, txtPergunta, txtTempo;
+    private MaterialButton btnResposta1, btnResposta2, btnResposta3, btnResposta4, btnAjuda5050, btnDesistir, btnTrocar;
+    private PerguntasDB perguntasDB; // Objeto para gerir as perguntas
+    private int nivelAtual = 1; // Indica o nível atual do jogador
+    private int premioAtual = 0; // Total acumulado de prémios
+    private String respostaCerta; // Guarda a resposta correta da pergunta atual
+    private List<PerguntasDB.Question> perguntasAleatorias; // Lista de perguntas aleatórias
+    private int indicePerguntaAtual = 0; // Índice da pergunta atual
+    private CountDownTimer temporizador; // Temporizador para cada pergunta
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,121 +32,157 @@ public class Perguntas extends AppCompatActivity {
         setContentView(R.layout.activity_perguntas);
 
         // Inicializar elementos da interface
-        txtLevel = findViewById(R.id.txtLevel);
-        txtEarnings = findViewById(R.id.txtEarnings);
-        txtQuestion = findViewById(R.id.txtQuestion);
-        txtTimer = findViewById(R.id.txtTimer);
+        txtNivel = findViewById(R.id.txtLevel);
+        txtPremio = findViewById(R.id.txtEarnings);
+        txtPergunta = findViewById(R.id.txtQuestion);
+        txtTempo = findViewById(R.id.txtTimer);
 
-        btnAnswer1 = findViewById(R.id.btnAnswer1);
-        btnAnswer2 = findViewById(R.id.btnAnswer2);
-        btnAnswer3 = findViewById(R.id.btnAnswer3);
-        btnAnswer4 = findViewById(R.id.btnAnswer4);
-        btnHelpSwitch = findViewById(R.id.btnHelpSwitch);
+        btnResposta1 = findViewById(R.id.btnAnswer1);
+        btnResposta2 = findViewById(R.id.btnAnswer2);
+        btnResposta3 = findViewById(R.id.btnAnswer3);
+        btnResposta4 = findViewById(R.id.btnAnswer4);
+        btnAjuda5050 = findViewById(R.id.btnHelp50);
+        btnDesistir = findViewById(R.id.btnQuit);
+        btnTrocar = findViewById(R.id.btnHelpSwitch);
 
+        // Inicializa a base de dados de perguntas
         perguntasDB = new PerguntasDB(this);
 
-        // Recupera o nome do usuário enviado pelo MenuPrincipal
-        String userName = getIntent().getStringExtra("user_name");
-        if (userName != null) {
-            Toast.makeText(this, "Bem-vindo, " + userName + "!", Toast.LENGTH_SHORT).show();
+        // Recupera o nome do jogador enviado pelo MenuPrincipal
+        String nomeJogador = getIntent().getStringExtra("user_name");
+        if (nomeJogador != null) {
+            Toast.makeText(this, "Bem-vindo, " + nomeJogador + "!", Toast.LENGTH_SHORT).show();
         }
 
-        // Obtém 15 perguntas aleatórias
-        randomQuestions = perguntasDB.getRandomQuestions();
+        // Obter uma lista de perguntas aleatórias da base de dados
+        perguntasAleatorias = perguntasDB.getRandomQuestions();
 
-        // Carrega a primeira pergunta
+        // Carregar a primeira pergunta
         carregarPergunta();
 
-        // Configurar cliques nos botões de resposta
-        btnAnswer1.setOnClickListener(v -> verificarResposta(btnAnswer1.getText().toString()));
-        btnAnswer2.setOnClickListener(v -> verificarResposta(btnAnswer2.getText().toString()));
-        btnAnswer3.setOnClickListener(v -> verificarResposta(btnAnswer3.getText().toString()));
-        btnAnswer4.setOnClickListener(v -> verificarResposta(btnAnswer4.getText().toString()));
+        // Configurar ações para os botões de resposta
+        btnResposta1.setOnClickListener(v -> verificarResposta(btnResposta1.getText().toString()));
+        btnResposta2.setOnClickListener(v -> verificarResposta(btnResposta2.getText().toString()));
+        btnResposta3.setOnClickListener(v -> verificarResposta(btnResposta3.getText().toString()));
+        btnResposta4.setOnClickListener(v -> verificarResposta(btnResposta4.getText().toString()));
 
-        // Configurar botão de ajuda para trocar de pergunta
-        btnHelpSwitch.setOnClickListener(v -> trocarPergunta());
+        // Configurar ação do botão de ajuda "50/50"
+        btnAjuda5050.setOnClickListener(v -> aplicarAjuda5050());
+
+        // Configurar ação do botão de desistir
+        btnDesistir.setOnClickListener(v -> desistirJogo());
+
+        // Configurar ação do botão de trocar de pergunta
+        btnTrocar.setOnClickListener(v -> trocarPergunta());
     }
 
-    // Carrega a próxima pergunta da lista de perguntas aleatórias
+    /**
+     * Carrega a pergunta atual baseada no índice e atualiza os elementos da interface.
+     */
     private void carregarPergunta() {
-        // Verifica se ainda há perguntas disponíveis
-        if (currentQuestionIndex < randomQuestions.size()) {
-            PerguntasDB.Question currentQuestion = randomQuestions.get(currentQuestionIndex);
+        if (indicePerguntaAtual < perguntasAleatorias.size()) {
+            PerguntasDB.Question perguntaAtual = perguntasAleatorias.get(indicePerguntaAtual);
 
-            // Atualiza as informações do nível e prêmio
-            txtLevel.setText("Nível: " + currentLevel);
-            txtEarnings.setText("Prêmio: €" + currentEarnings);
+            // Atualiza os textos dos elementos da interface
+            txtNivel.setText("Nível: " + nivelAtual);
+            txtPremio.setText("Prémio: €" + premioAtual);
+            txtPergunta.setText(perguntaAtual.getQuestion());
+            btnResposta1.setText(perguntaAtual.getAnswer1());
+            btnResposta2.setText(perguntaAtual.getAnswer2());
+            btnResposta3.setText(perguntaAtual.getAnswer3());
+            btnResposta4.setText(perguntaAtual.getAnswer4());
 
-            // Carrega a pergunta e as alternativas
-            txtQuestion.setText(currentQuestion.getQuestion());
-            btnAnswer1.setText(currentQuestion.getAnswer1());
-            btnAnswer2.setText(currentQuestion.getAnswer2());
-            btnAnswer3.setText(currentQuestion.getAnswer3());
-            btnAnswer4.setText(currentQuestion.getAnswer4());
+            // Armazena a resposta correta
+            respostaCerta = perguntaAtual.getCorrect();
 
-            correctAnswer = currentQuestion.getCorrect();
-
-            // Inicia o timer para 30 segundos
-            iniciarTimer(30000);
+            // Inicia o temporizador de 30 segundos
+            iniciarTemporizador(30000);
         } else {
-            // Todas as perguntas foram respondidas
-            Toast.makeText(this, "Parabéns! Prêmio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
-            finish();
+            // Caso todas as perguntas sejam respondidas, o jogo termina
+            finalizarJogo("Parabéns! Ganhou €" + premioAtual);
         }
     }
 
-    // Inicia o timer para contar o tempo restante
-    private void iniciarTimer(long tempoEmMillis) {
-        if (timer != null) timer.cancel();
+    /**
+     * Inicia o temporizador para contar o tempo de resposta.
+     */
+    private void iniciarTemporizador(long tempo) {
+        if (temporizador != null) temporizador.cancel();
 
-        timer = new CountDownTimer(tempoEmMillis, 1000) {
+        temporizador = new CountDownTimer(tempo, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int segundosRestantes = (int) (millisUntilFinished / 1000);
-                txtTimer.setText(String.format("%02d:%02d", segundosRestantes / 60, segundosRestantes % 60));
+                txtTempo.setText((millisUntilFinished / 1000) + "s");
             }
 
             @Override
             public void onFinish() {
-                txtTimer.setText("00:00");
-                Toast.makeText(Perguntas.this, "Tempo esgotado! Jogo terminado.", Toast.LENGTH_LONG).show();
-                finish();
+                finalizarJogo("Tempo esgotado! Jogo terminado.");
             }
         };
-        timer.start();
+        temporizador.start();
     }
 
-    // Verifica se a resposta está correta
+    /**
+     * Verifica se a resposta selecionada pelo jogador está correta.
+     */
     private void verificarResposta(String respostaSelecionada) {
-        // Para a contagem do timer quando a resposta é dada
-        if (timer != null) timer.cancel();
+        if (temporizador != null) temporizador.cancel();
 
-        if (respostaSelecionada.equals(correctAnswer)) {
-            currentEarnings += 1000; // Cada resposta correta vale €1000
-            Toast.makeText(this, "Resposta correta! Você ganhou €1000.", Toast.LENGTH_SHORT).show();
-
-            if (currentLevel < 5) { // Avança para o próximo nível
-                currentLevel++;
-                currentQuestionIndex++;
-                carregarPergunta();
-            } else { // Jogo completo
-                Toast.makeText(this, "Parabéns! Prêmio total: €" + currentEarnings, Toast.LENGTH_LONG).show();
-                finish();
-            }
-        } else {
-            Toast.makeText(this, "Resposta errada! Jogo terminado.", Toast.LENGTH_LONG).show();
-            finish();
-        }
-    }
-
-    // Troca a pergunta atual por outra
-    private void trocarPergunta() {
-        if (currentQuestionIndex < randomQuestions.size() - 1) {
-            currentQuestionIndex++;
+        if (respostaSelecionada.equals(respostaCerta)) {
+            premioAtual += 1000; // Adiciona €1000 ao prémio atual
+            Toast.makeText(this, "Resposta correta! +€1000", Toast.LENGTH_SHORT).show();
+            nivelAtual++; // Avança para o próximo nível
+            indicePerguntaAtual++; // Avança para a próxima pergunta
             carregarPergunta();
         } else {
-            Toast.makeText(this, "Não há mais perguntas para trocar.", Toast.LENGTH_SHORT).show();
+            finalizarJogo("Resposta errada! Jogo terminado.");
         }
-        btnHelpSwitch.setEnabled(false); // Desativa o botão de ajuda
+    }
+
+    /**
+     * Aplica a ajuda "50/50", desativando duas respostas erradas.
+     */
+    private void aplicarAjuda5050() {
+        List<MaterialButton> botoes = new ArrayList<>();
+        botoes.add(btnResposta1);
+        botoes.add(btnResposta2);
+        botoes.add(btnResposta3);
+        botoes.add(btnResposta4);
+
+        int removidos = 0; // Contador de respostas desativadas
+        for (MaterialButton botao : botoes) {
+            if (!botao.getText().toString().equals(respostaCerta) && removidos < 2) {
+                botao.setEnabled(false);
+                removidos++;
+            }
+        }
+        btnAjuda5050.setEnabled(false); // Desativa o botão após uso
+    }
+
+    /**
+     * Troca a pergunta atual por outra.
+     */
+    private void trocarPergunta() {
+        if (indicePerguntaAtual < perguntasAleatorias.size() - 1) {
+            indicePerguntaAtual++;
+            carregarPergunta();
+        } else {
+            Toast.makeText(this, "Não há mais perguntas disponíveis.", Toast.LENGTH_SHORT).show();
+        }
+        btnTrocar.setEnabled(false); // Desativa o botão após uso
+    }
+
+    /**
+     * Desiste do jogo e volta ao menu principal.
+     */
+    private void desistirJogo() {
+        startActivity(new Intent(this, MenuPrincipal.class));
+        finish();
+    }
+
+    private void finalizarJogo(String mensagem) {
+        Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+        finish();
     }
 }

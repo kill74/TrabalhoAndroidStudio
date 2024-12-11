@@ -18,7 +18,6 @@ public class Perdeu extends AppCompatActivity {
         setContentView(R.layout.activity_perdeu_jogo);
 
         txtMensagem = findViewById(R.id.GameOver); // Atualize para o ID correto no XML
-        txtPontos = findViewById(R.id.scoreText); // Atualize para o ID correto no XML
         txtDinheiro = findViewById(R.id.moneyText); // Atualize para o ID correto no XML
         btnJogarNovamente = findViewById(R.id.restartButton); // Atualize para o ID correto no XML
         btnVoltarMenu = findViewById(R.id.menuButton); // Atualize para o ID correto no XML
