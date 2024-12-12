@@ -28,12 +28,14 @@ public class Perdeu extends AppCompatActivity {
         txtMensagem.setText("Você perdeu!");
         txtDinheiro.setText("Prémio total: €" + dinheiro);
 
+        // Ao carregar neste botão irá conseguir jogar de novo
         btnJogarNovamente.setOnClickListener(v -> {
             Intent intentRestart = new Intent(Perdeu.this, Perguntas.class);
             startActivity(intentRestart);
             finish();
         });
 
+        // Ao carregar neste botao irá mandar para o Menu Principal
         btnVoltarMenu.setOnClickListener(v -> {
             Intent intentMenu = new Intent(Perdeu.this, MenuPrincipal.class);
             startActivity(intentMenu);

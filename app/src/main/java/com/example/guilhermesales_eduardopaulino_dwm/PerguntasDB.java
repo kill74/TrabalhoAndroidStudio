@@ -16,7 +16,7 @@ public class PerguntasDB {
 
     private void carregarPerguntas() {
         questions.add(new Question("Qual é a capital de Portugal?", "Lisboa", "Porto", "Braga", "Faro", "Lisboa"));
-        questions.add(new Question("Quantos continentes existem?", "5", "6", "7", "8", "7"));
+        questions.add(new Question("Quantos continentes existem?", "5", "6", "7", "8", "6"));
         questions.add(new Question("Quem pintou a Mona Lisa?", "Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo", "Leonardo da Vinci"));
         questions.add(new Question("Qual é o maior oceano do mundo?", "Atlântico", "Pacífico", "Índico", "Ártico", "Pacífico"));
         questions.add(new Question("Qual é o metal mais precioso?", "Prata", "Platina", "Ouro", "Paládio", "Ouro"));
@@ -28,7 +28,7 @@ public class PerguntasDB {
         questions.add(new Question("Quantas cores tem o arco-íris?", "6", "7", "8", "9", "7"));
         questions.add(new Question("Qual é o animal mais rápido do mundo?", "Guepardo", "Falcão-peregrino", "Leopardo", "Cavalo", "Falcão-peregrino"));
         questions.add(new Question("Quem foi o primeiro homem a pisar na Lua?", "Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Michael Collins", "Neil Armstrong"));
-        questions.add(new Question("Qual é o nome do maior deserto do mundo?", "Sahara", "Gobi", "Atacama", "Antártida", "Antártida"));
+        questions.add(new Question("Qual é o nome do maior deserto do mundo?", "Sahara", "Gobi", "Atacama", "Antártida", "Sahara"));
         questions.add(new Question("Quantos minutos tem uma hora?", "60", "120", "30", "90", "60"));
         questions.add(new Question("Qual é a montanha mais alta do mundo?", "Everest", "K2", "Kilimanjaro", "Makalu", "Everest"));
         questions.add(new Question("Quem escreveu os Lusiadas ?", "Camões", "Pessoa", "Saramago", "Eça de Queirós", "Camões"));

@@ -42,7 +42,7 @@ public class Perguntas extends AppCompatActivity {
         btnResposta2 = findViewById(R.id.btnAnswer2);
         btnResposta3 = findViewById(R.id.btnAnswer3);
         btnResposta4 = findViewById(R.id.btnAnswer4);
-        btnAjuda5050 = findViewById(R.id.btnHelp50);
+        btnAjuda5050 = findViewById(R.id.btnHelp50); 
         btnDesistir = findViewById(R.id.btnQuit);
         btnTrocar = findViewById(R.id.btnHelpSwitch);
 
@@ -96,8 +96,8 @@ public class Perguntas extends AppCompatActivity {
             // Armazena a resposta correta
             respostaCerta = perguntaAtual.getCorrect();
 
-            // Inicia o temporizador de 30 segundos
-            iniciarTemporizador(30000);
+            // Inicia o temporizador de 20 segundos
+            iniciarTemporizador(2000);
         } else {
             // Caso todas as perguntas sejam respondidas, o jogo termina
             finalizarJogo("Parabéns! Ganhou €" + premioAtual);
@@ -132,7 +132,7 @@ public class Perguntas extends AppCompatActivity {
 
         if (respostaSelecionada.equals(respostaCerta)) {
             acertosConsecutivos++; // Incrementa o número de acertos consecutivos
-            premioAtual += 1000;  // Aumenta o prêmio
+            premioAtual += 500;  // Por cada resposta correta ira aumentar 500 em 500
             Toast.makeText(this, "Resposta correta! +€1000", Toast.LENGTH_SHORT).show();
             nivelAtual++;  // Avança para o próximo nível
             indicePerguntaAtual++;  // Avança para a próxima pergunta
@@ -158,10 +158,18 @@ public class Perguntas extends AppCompatActivity {
         }
     }
 
+    private boolean ajudausada = false;
+
     /**
      * Aplica a ajuda "50/50", desativando duas respostas erradas.
      */
     private void aplicarAjuda5050() {
+        // Verificar se a ajuda já foi usada
+        if(ajudausada){
+            return; // ira sair da funcao se a ajuda ja foi usada
+        }
+
+
         List<MaterialButton> botoes = new ArrayList<>();
         botoes.add(btnResposta1);
         botoes.add(btnResposta2);
@@ -176,6 +184,7 @@ public class Perguntas extends AppCompatActivity {
             }
         }
         btnAjuda5050.setEnabled(false); // Desativa o botão após uso
+        ajudausada = true; // o que isto vai fazer é assumir que a ajuda ja foi usada e o jogador nao ira conseguir usar mais
     }
 
     /**
