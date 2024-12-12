@@ -133,7 +133,7 @@ public class Perguntas extends AppCompatActivity {
         if (respostaSelecionada.equals(respostaCerta)) {
             acertosConsecutivos++; // Incrementa o número de acertos consecutivos
             premioAtual += 500;  // Por cada resposta correta ira aumentar 500 em 500
-            Toast.makeText(this, "Resposta correta! +€1000", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Resposta correta! +€500", Toast.LENGTH_SHORT).show();
             nivelAtual++;  // Avança para o próximo nível
             indicePerguntaAtual++;  // Avança para a próxima pergunta
 
@@ -169,7 +169,6 @@ public class Perguntas extends AppCompatActivity {
             return; // ira sair da funcao se a ajuda ja foi usada
         }
 
-
         List<MaterialButton> botoes = new ArrayList<>();
         botoes.add(btnResposta1);
         botoes.add(btnResposta2);
@@ -183,8 +182,9 @@ public class Perguntas extends AppCompatActivity {
                 removidos++;
             }
         }
-        btnAjuda5050.setEnabled(false); // Desativa o botão após uso
+
         ajudausada = true; // o que isto vai fazer é assumir que a ajuda ja foi usada e o jogador nao ira conseguir usar mais
+        btnAjuda5050.setEnabled(false); // Desativa o botão após uso
     }
 
     /**
