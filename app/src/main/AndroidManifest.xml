@@ -26,9 +26,9 @@
         <activity
             android:name=".Perdeu"
             android:exported="true" />
-        <activity
-            android:name=".Final"
-            android:exported="true" />
+        <!-- <activity
+             android:name=".Final"
+             android:exported="true" /> -->
         <activity
             android:name=".Perguntas"
             android:exported="true" />
