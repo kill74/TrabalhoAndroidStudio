@@ -97,7 +97,7 @@ public class Perguntas extends AppCompatActivity {
             respostaCerta = perguntaAtual.getCorrect();
 
             // Inicia o temporizador de 20 segundos
-            iniciarTemporizador(2000);
+            iniciarTemporizador(20000);
         } else {
             // Caso todas as perguntas sejam respondidas, o jogo termina
             finalizarJogo("Parabéns! Ganhou €" + premioAtual);
