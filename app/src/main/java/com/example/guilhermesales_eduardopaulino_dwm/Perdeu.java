@@ -17,29 +17,32 @@ public class Perdeu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perdeu_jogo);
 
+        // Vincula os elementos do layout aos objetos
         txtMensagem = findViewById(R.id.GameOver);
         txtDinheiro = findViewById(R.id.moneyText);
         btnJogarNovamente = findViewById(R.id.restartButton);
         btnVoltarMenu = findViewById(R.id.menuButton);
 
+        // Recebe os dados enviados pela Intent
         Intent intent = getIntent();
         int dinheiro = intent.getIntExtra("dinheiro", 0);
 
+        // Configura os textos na interface
         txtMensagem.setText("Você perdeu!");
         txtDinheiro.setText("Prémio total: €" + dinheiro);
 
-        // Ao carregar neste botão irá conseguir jogar de novo
+        // Configura ação do botão "Jogar Novamente"
         btnJogarNovamente.setOnClickListener(v -> {
             Intent intentRestart = new Intent(Perdeu.this, Perguntas.class);
             startActivity(intentRestart);
-            finish();
+            finish(); // Finaliza a atividade atual
         });
 
-        // Ao carregar neste botao irá mandar para o Menu Principal
+        // Configura ação do botão "Voltar ao Menu"
         btnVoltarMenu.setOnClickListener(v -> {
             Intent intentMenu = new Intent(Perdeu.this, MenuPrincipal.class);
             startActivity(intentMenu);
-            finish();
+            finish(); // Finaliza a atividade atual
         });
     }
 }
