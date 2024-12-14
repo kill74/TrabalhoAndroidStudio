@@ -14,6 +14,7 @@ public class PerguntasDB {
         carregarPerguntas();
     }
 
+    // Função para guardar as perguntas (30 perguntas)
     private void carregarPerguntas() {
         questions.add(new Question("Qual é a capital de Portugal?", "Lisboa", "Porto", "Braga", "Faro", "Lisboa"));
         questions.add(new Question("Quantos continentes existem?", "5", "6", "7", "8", "6"));
@@ -47,7 +48,7 @@ public class PerguntasDB {
         questions.add(new Question("Qual é a fórmula química do dióxido de carbono?", "CO", "CO2", "O2", "C2O", "CO2"));
     }
 
-    public List<Question> getRandomQuestions() {
+    public List<Question> getRandomQuestions() { // função para meter as perguntas random
         Collections.shuffle(questions);
         return questions.subList(0, Math.min(questions.size(), 30));
     }
