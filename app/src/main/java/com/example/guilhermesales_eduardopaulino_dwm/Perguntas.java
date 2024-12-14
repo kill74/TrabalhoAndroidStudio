@@ -119,7 +119,7 @@ public class Perguntas extends AppCompatActivity {
     private void iniciarTemporizador(long tempo) {
         if (temporizador != null) temporizador.cancel();
 
-        temporizador = new CountDownTimer(tempo, 1000) {
+        temporizador = new CountDownTimer(tempo, 1000) { // ira de 1 em 1 ate ao final
             @Override
             public void onTick(long millisUntilFinished) {
                 txtTempo.setText((millisUntilFinished / 1000) + "s");
@@ -127,7 +127,7 @@ public class Perguntas extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                finalizarJogo("Tempo esgotado! Jogo terminado.");
+                finalizarJogo("Tempo esgotado! Jogo terminado."); // se o temporizador chegar ao 0 ira mostrar esta mensagem
             }
         }.start();
     }
@@ -159,22 +159,23 @@ public class Perguntas extends AppCompatActivity {
         }
     }
 
-    // Função
+    // Função da ajuda de 50/50
     private void aplicarAjuda5050() {
-        if (ajudaUsada) return;
+        if (ajudaUsada) return; // se a ajuda ja foi usado o jogador nao ira conseguir usar mais a ajuda
 
         int removidos = 0;
         for (MaterialButton botao : btnRespostas) {
-            if (!botao.getText().toString().equals(respostaCerta) && removidos < 2) {
-                botao.setVisibility(View.INVISIBLE);
+            if (!botao.getText().toString().equals(respostaCerta) && removidos < 2) { //ira remover 2 perguntas e ira mostrar a resposta certa e outra que estara errada
+                botao.setVisibility(View.INVISIBLE); // ira esconder as 2 perguntas que ira estar incorretas
                 removidos++;
             }
         }
 
-        ajudaUsada = true;
-        btnAjuda5050.setEnabled(false);
+        ajudaUsada = true; // se o botao ja foi usado
+        btnAjuda5050.setEnabled(false); // ira desabilitalo e o jogador nao ira poder usar mais
     }
 
+    // Função para trocar a pergunta
     private void trocarPergunta() {
         if (indicePerguntaAtual < perguntasAleatorias.size() - 1) {
             indicePerguntaAtual++;
@@ -185,8 +186,9 @@ public class Perguntas extends AppCompatActivity {
         }
     }
 
+    //Itent para desistir do jogo
     private void desistirJogo() {
-        startActivity(new Intent(this, MenuPrincipal.class));
+        startActivity(new Intent(this, MenuPrincipal.class)); // se o jogador carregar no botão de desistir ira ser levado para o Menu Principal
         finish();
     }
 
