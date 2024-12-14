@@ -153,7 +153,7 @@ public class Perguntas extends AppCompatActivity {
         } else { // se ele errar alguma pergunta ira ser mandado para a pagina final (Perdeu)
             Intent intent = new Intent(this, Perdeu.class);
             intent.putExtra("Nível", nivelAtual - 1); // que ira mostrar o nivel em que ele perdeu
-            intent.putExtra("dinheirqqqqqqqqawqqq2qQq12222qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq                   1o", premioAtual); // bem como o dinheiro que ele perdeu
+            intent.putExtra("dinheiro", premioAtual); // bem como o dinheiro que ele perdeu
             startActivity(intent);
             finish();
         }
