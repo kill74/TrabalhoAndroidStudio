@@ -13,12 +13,14 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
+//Todos os if e else que temos no código poderiam ter sido feitos com try e catch.
+
+
 public class Perguntas extends AppCompatActivity {
     // Declaração das variáveis para elementos visuais da interface do utilizador
     private TextView txtNivel, txtPremio, txtPergunta, txtTempo; // Textos para mostrar o nível, prémio, pergunta e tempo
     private MaterialButton[] btnRespostas = new MaterialButton[4]; // Botões para as respostas (4 no total)
     private MaterialButton btnAjuda5050, btnDesistir, btnTrocar; // Botões para ajudas e desistência
-
     // Declaração da base de dados e variáveis de jogo
     private PerguntasDB perguntasDB; // Objeto responsável por gerir a base de dados das perguntas
     private int nivelAtual = 1; // Nível atual do jogador, começa no nível 1
@@ -46,7 +48,7 @@ public class Perguntas extends AppCompatActivity {
         txtPergunta = findViewById(R.id.txtQuestion);
         txtTempo = findViewById(R.id.txtTimer);
 
-        // Liga os botões das respostas ao layout (4 botões no total)
+        // Liga os botões das respostas ao layout
         btnRespostas[0] = findViewById(R.id.btnAnswer1);
         btnRespostas[1] = findViewById(R.id.btnAnswer2);
         btnRespostas[2] = findViewById(R.id.btnAnswer3);

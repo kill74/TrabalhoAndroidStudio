@@ -7,15 +7,18 @@ import java.util.List;
 
 public class PerguntasDB {
 
+    // Lista que armazena todas as perguntas do jogo
     private final List<Question> questions;
 
+    // Construtor da classe PerguntasDB
     public PerguntasDB(Context context) {
-        questions = new ArrayList<>();
-        carregarPerguntas();
+        questions = new ArrayList<>(); // Inicializa a lista de perguntas
+        carregarPerguntas(); // Chama o método para carregar todas as perguntas na lista
     }
 
-    // Função para guardar as perguntas (30 perguntas)
+    // Método para carregar as perguntas na lista (são adicionadas 30 perguntas)
     private void carregarPerguntas() {
+        // Adiciona perguntas à lista, cada uma com a pergunta, 4 respostas possíveis e a resposta correta
         questions.add(new Question("Qual é a capital de Portugal?", "Lisboa", "Porto", "Braga", "Faro", "Lisboa"));
         questions.add(new Question("Quantos continentes existem?", "5", "6", "7", "8", "6"));
         questions.add(new Question("Quem pintou a Mona Lisa?", "Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo", "Leonardo da Vinci"));
@@ -45,23 +48,28 @@ public class PerguntasDB {
         questions.add(new Question("Qual é o menor país do mundo?", "Mónaco", "Vaticano", "Malta", "Andorra", "Vaticano"));
         questions.add(new Question("Qual é o instrumento utilizado para medir a temperatura?", "Termómetro", "Barómetro", "Higrómetro", "Anemómetro", "Termómetro"));
         questions.add(new Question("Quantos dias tem um ano bissexto?", "365", "366", "364", "368", "366"));
-        questions.add(new Question("Qual o melhor professor do universo ?","Nuno Conceição","Marcelo Rebelo de Sousa","António Costa", "Eduardo Paulino", "Nuno Conceição"));
+        questions.add(new Question("Qual o melhor professor do universo ?", "Nuno Conceição", "Marcelo Rebelo de Sousa", "António Costa", "Eduardo Paulino", "Nuno Conceição"));
         questions.add(new Question("Qual é a fórmula química do dióxido de carbono?", "CO", "CO2", "O2", "C2O", "CO2"));
     }
 
-    public List<Question> getRandomQuestions() { // função para meter as perguntas random
+    // Método para retornar perguntas aleatórias
+    public List<Question> getRandomQuestions() {
+        // Embaralha as perguntas da lista para garantir aleatoriedade
         Collections.shuffle(questions);
+        // Retorna as primeiras 30 perguntas, ou menos caso não existam tantas perguntas
         return questions.subList(0, Math.min(questions.size(), 30));
     }
 
+    // Classe interna que define uma pergunta com suas respostas e a resposta correta
     public static class Question {
-        private final String question;
-        private final String answer1;
-        private final String answer2;
-        private final String answer3;
-        private final String answer4;
-        private final String correct;
+        private final String question; // Texto da pergunta
+        private final String answer1; // Primeira resposta
+        private final String answer2; // Segunda resposta
+        private final String answer3; // Terceira resposta
+        private final String answer4; // Quarta resposta
+        private final String correct; // Resposta correta
 
+        // Construtor da classe Question
         public Question(String question, String answer1, String answer2, String answer3, String answer4, String correct) {
             this.question = question;
             this.answer1 = answer1;
@@ -71,28 +79,29 @@ public class PerguntasDB {
             this.correct = correct;
         }
 
+        // Métodos getter para obter os atributos
         public String getQuestion() {
-            return question;
+            return question; // Retorna o texto da pergunta
         }
 
         public String getAnswer1() {
-            return answer1;
+            return answer1; // Retorna a primeira resposta
         }
 
         public String getAnswer2() {
-            return answer2;
+            return answer2; // Retorna a segunda resposta
         }
 
         public String getAnswer3() {
-            return answer3;
+            return answer3; // Retorna a terceira resposta
         }
 
         public String getAnswer4() {
-            return answer4;
+            return answer4; // Retorna a quarta resposta
         }
 
         public String getCorrect() {
-            return correct;
+            return correct; // Retorna a resposta correta
         }
     }
 }

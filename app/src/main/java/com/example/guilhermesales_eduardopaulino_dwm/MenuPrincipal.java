@@ -20,7 +20,7 @@ public class MenuPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        // Inicializa o banco de dados
+        // Inicializa a base de dados
         databaseHelper = new GuardarNomeDB(this);
 
         // Vincula os elementos de layout
@@ -47,13 +47,13 @@ public class MenuPrincipal extends AppCompatActivity {
             return;
         }
 
-        // Salva o nome do utilizador no banco de dados e inicia o jogo
+        // Salva o nome do utilizador na base de dados e inicia o jogo
         saveUserNameAndStartGame(userName);
     }
 
-    // Salva o nome do utilizador no banco de dados e inicia o jogo
+    // Salva o nome do utilizador na base de dados e inicia o jogo
     private void saveUserNameAndStartGame(String userName) {
-        // Salva o nome no banco de dados
+        // Salva o nome na base de dados
         long result = databaseHelper.addUser(userName);
         if (result > 0) {
             Toast.makeText(this, "Nome salvo com sucesso!", Toast.LENGTH_SHORT).show();
