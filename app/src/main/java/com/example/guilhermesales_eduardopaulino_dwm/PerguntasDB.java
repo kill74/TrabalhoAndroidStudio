@@ -45,6 +45,7 @@ public class PerguntasDB {
         questions.add(new Question("Qual é o menor país do mundo?", "Mónaco", "Vaticano", "Malta", "Andorra", "Vaticano"));
         questions.add(new Question("Qual é o instrumento utilizado para medir a temperatura?", "Termómetro", "Barómetro", "Higrómetro", "Anemómetro", "Termómetro"));
         questions.add(new Question("Quantos dias tem um ano bissexto?", "365", "366", "364", "368", "366"));
+        questions.add(new Question("Qual o melhor professor do universo ?","Nuno Conceição","Marcelo Rebelo de Sousa","António Costa", "Eduardo Paulino", "Nuno Conceição"));
         questions.add(new Question("Qual é a fórmula química do dióxido de carbono?", "CO", "CO2", "O2", "C2O", "CO2"));
     }
 

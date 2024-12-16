@@ -6,49 +6,57 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-// Classe para gerir a base de dados dos utilizadores
+/**
+ * Esta classe é responsável por gerir uma base de dados SQLite para armazenar nomes de utilizadores.
+ */
 public class GuardarNomeDB extends SQLiteOpenHelper {
 
-    // Nome e versão da base de dados
+    // Nome do ficheiro da base de dados
     private static final String DATABASE_NAME = "users.db";
+
+    // Versão da base de dados
     private static final int DATABASE_VERSION = 1;
-    // Nome da tabela e das colunas
+
+    // Nome da tabela para armazenar os nomes do utilizador
     private static final String TABLE_USERS = "users";
+
+    // Nome da coluna para o id do utilizador
     private static final String COLUMN_ID = "id";
+
+    // Nome da coluna para o nome do utilizador
     private static final String COLUMN_NAME = "name";
 
-    // Construtor - inicializa a base de dados
+    // Construtor da classe
     public GuardarNomeDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Criar a tabela quando a base de dados for criada pela primeira vez
+    //Ira criar a base de dados
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_USERS + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // ID auto-incrementado
-                COLUMN_NAME + " TEXT NOT NULL);"; // Nome do utilizador, obrigatório
-        db.execSQL(createTable); // Executa o comando SQL
+        db.execSQL("CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT NOT NULL)");
     }
 
-    // Atualizar a base de dados (caso a versão seja alterada)
+    // Atualiza a base de dados para a nova versão
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS); // Apaga a tabela existente
-        onCreate(db); // Recria a tabela
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        onCreate(db);
     }
 
-    // Adiciona um novo utilizador
+    // Adiciona um novo utilizador a base de dados
     public long addUser(String name) {
-        SQLiteDatabase db = this.getWritableDatabase(); // Obtém a base de dados em modo de escrita
-        ContentValues values = new ContentValues(); // Estrutura para armazenar os dados
-        values.put(COLUMN_NAME, name); // Insere o nome no ContentValues
-        return db.insert(TABLE_USERS, null, values); // Insere os dados na tabela e devolve o ID da linha inserida
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, name);
+        return db.insert(TABLE_USERS, null, values);
     }
 
-    // Retorna todos os utilizadores da tabela
+    // Obtém os utilizadores da base de dados
     public Cursor getAllUsers() {
-        SQLiteDatabase db = this.getReadableDatabase(); // Obtém a base de dados em modo de leitura
-        return db.query(TABLE_USERS, null, null, null, null, null, COLUMN_ID + " ASC"); // Consulta ordenada por ID
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query(TABLE_USERS, null, null, null, null, null, COLUMN_ID + " ASC");
     }
 }

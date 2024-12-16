@@ -186,9 +186,25 @@ public class Perguntas extends AppCompatActivity {
         }
     }
 
-    //Itent para desistir do jogo
     private void desistirJogo() {
-        startActivity(new Intent(this, MenuPrincipal.class)); // se o jogador carregar no botão de desistir ira ser levado para o Menu Principal
+        if (temporizador != null) temporizador.cancel();
+
+        // Verificar se é a 5ª ou 10ª pergunta e atualizar o prêmio se necessário
+        if (indicePerguntaAtual == 4 || indicePerguntaAtual == 9) {
+            // Verificar se a última resposta estava correta (simplificado para legibilidade)
+            if (respostaCerta.equals(btnRespostas[0].getText().toString())) {
+                premioAtual += 500;
+            }
+
+            Intent intent = new Intent(this, Ganhou.class);
+            intent.putExtra("Nível", nivelAtual);
+            intent.putExtra("dinheiro", premioAtual);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, MenuPrincipal.class);
+            startActivity(intent);
+        }
+
         finish();
     }
 

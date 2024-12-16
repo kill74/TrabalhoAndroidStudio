@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Perdeu extends AppCompatActivity {
 
-    private TextView txtMensagem, txtDinheiro;
-    private Button btnJogarNovamente, btnVoltarMenu;
+    private TextView mensagem, textoDinheiro;
+    private Button botaoJogarNovamente, botaoVoltarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,31 +18,29 @@ public class Perdeu extends AppCompatActivity {
         setContentView(R.layout.activity_perdeu_jogo);
 
         // Vincula os elementos do layout aos objetos
-        txtMensagem = findViewById(R.id.GameOver);
-        txtDinheiro = findViewById(R.id.moneyText);
-        btnJogarNovamente = findViewById(R.id.restartButton);
-        btnVoltarMenu = findViewById(R.id.menuButton);
+        mensagem = findViewById(R.id.GameOver);
+        textoDinheiro = findViewById(R.id.moneyText);
+        botaoJogarNovamente = findViewById(R.id.restartButton);
+        botaoVoltarMenu = findViewById(R.id.menuButton);
 
         // Recebe os dados enviados pela Intent
         Intent intent = getIntent();
         int dinheiro = intent.getIntExtra("dinheiro", 0);
 
         // Configura os textos na interface
-        txtMensagem.setText("Você perdeu!");
-        txtDinheiro.setText("Prémio total: €" + dinheiro);
+        mensagem.setText("Você perdeu!");
+        textoDinheiro.setText("Prémio total: €" + dinheiro);
 
-        // Configura ação do botão "Jogar Novamente"
-        btnJogarNovamente.setOnClickListener(v -> {
-            Intent intentRestart = new Intent(Perdeu.this, Perguntas.class);
-            startActivity(intentRestart);
-            finish(); // Finaliza a atividade atual
-        });
+        // Configura a ação dos botões
+        configurarBotao(botaoJogarNovamente, Perguntas.class);
+        configurarBotao(botaoVoltarMenu, MenuPrincipal.class);
+    }
 
-        // Configura ação do botão "Voltar ao Menu"
-        btnVoltarMenu.setOnClickListener(v -> {
-            Intent intentMenu = new Intent(Perdeu.this, MenuPrincipal.class);
-            startActivity(intentMenu);
-            finish(); // Finaliza a atividade atual
+    private void configurarBotao(Button botao, Class<?> classe) {
+        botao.setOnClickListener(v -> {
+            Intent intent = new Intent(Perdeu.this, classe);
+            startActivity(intent);
+            finish();
         });
     }
 }
