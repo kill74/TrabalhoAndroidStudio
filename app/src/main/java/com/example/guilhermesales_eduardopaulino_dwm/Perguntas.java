@@ -133,29 +133,30 @@ public class Perguntas extends AppCompatActivity {
     }
 
     private void verificarResposta(String respostaSelecionada) {
-        if (temporizador != null) temporizador.cancel();
+        temporizador.cancel(); // Para o temporizador, independente da resposta
 
-        if (respostaSelecionada.equals(respostaCerta)) {
-            premioAtual += 500; // se a resposta estiver certa o jogador ira ganhar 500
-            Toast.makeText(this, "Resposta correta! +€500", Toast.LENGTH_SHORT).show(); // e ira aparecer um pop up
-            nivelAtual++; // ira aumentara mais um nivel
+        // Verifica se a resposta que o jogador selecionou é a resposta certa
+        boolean acertou = respostaSelecionada.equals(respostaCerta);
+        if (acertou) {
+            // Ação caso a resposta esteja correta
+            premioAtual += 500;
+            nivelAtual++; // Avança para o próximo nivel
             indicePerguntaAtual++;
+            Toast.makeText(this, "Resposta correta! +€500", Toast.LENGTH_SHORT).show();
+        } else {
+            // Ação caso a resposta esteja incorreta
+            nivelAtual--; //
+        }
 
-            if (nivelAtual == 15) { // se ele estiver no nivel 15
-                Intent intent = new Intent(this, Ganhou.class); // ira ser enviado para a pagina final (Ganhou)
-                intent.putExtra("Nível", nivelAtual); // que ira mostrar o nível em que ele acabou
-                intent.putExtra("dinheiro", premioAtual); // bem como o dinheiro que ele ganhou
-                startActivity(intent);
-                finish();
-            } else {
-                carregarPergunta();
-            }
-        } else { // se ele errar alguma pergunta ira ser mandado para a pagina final (Perdeu)
-            Intent intent = new Intent(this, Perdeu.class);
-            intent.putExtra("Nível", nivelAtual - 1); // que ira mostrar o nivel em que ele perdeu
-            intent.putExtra("dinheiro", premioAtual); // bem como o dinheiro que ele perdeu
+        // Verifica se o jogo acabou ou se deve continuar
+        if (nivelAtual == 15 || nivelAtual == 0) {
+            Intent intent = new Intent(this, acertou ? Ganhou.class : Perdeu.class);
+            intent.putExtra("Nível", nivelAtual);
+            intent.putExtra("dinheiro", premioAtual);
             startActivity(intent);
             finish();
+        } else {
+            carregarPergunta();
         }
     }
 
