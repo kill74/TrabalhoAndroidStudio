@@ -19,7 +19,7 @@ public class Perguntas extends AppCompatActivity {
     private MaterialButton btnAjuda5050, btnDesistir, btnTrocar;
     private PerguntasDB perguntasDB;
 
-    private int nivelAtual = 1;
+    private int nivelAtual = 1; // ira começar como default no nivel 1
     private int premioAtual = 0;
     private String respostaCerta;
     private List<PerguntasDB.Question> perguntasAleatorias;
@@ -59,7 +59,7 @@ public class Perguntas extends AppCompatActivity {
         // Recupera o nome do jogador
         String nomeJogador = getIntent().getStringExtra("user_name");
         if (nomeJogador != null) {
-            Toast.makeText(this, "Bem-vindo, " + nomeJogador + "!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bem-vindo, " + nomeJogador + "!", Toast.LENGTH_SHORT).show(); // ira aparecer um pop up a desejar boas vindas ao jogador
         }
 
         // Obter uma lista de perguntas aleatórias
@@ -119,7 +119,7 @@ public class Perguntas extends AppCompatActivity {
     private void iniciarTemporizador(long tempo) {
         if (temporizador != null) temporizador.cancel();
 
-        temporizador = new CountDownTimer(tempo, 1000) {
+        temporizador = new CountDownTimer(tempo, 1000) { // ira de 1 em 1 ate ao final
             @Override
             public void onTick(long millisUntilFinished) {
                 txtTempo.setText((millisUntilFinished / 1000) + "s");
@@ -127,7 +127,7 @@ public class Perguntas extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                finalizarJogo("Tempo esgotado! Jogo terminado.");
+                finalizarJogo("Tempo esgotado! Jogo terminado."); // se o temporizador chegar ao 0 ira mostrar esta mensagem
             }
         }.start();
     }
@@ -136,44 +136,46 @@ public class Perguntas extends AppCompatActivity {
         if (temporizador != null) temporizador.cancel();
 
         if (respostaSelecionada.equals(respostaCerta)) {
-            premioAtual += 500;
-            Toast.makeText(this, "Resposta correta! +€500", Toast.LENGTH_SHORT).show();
-            nivelAtual++;
+            premioAtual += 500; // se a resposta estiver certa o jogador ira ganhar 500
+            Toast.makeText(this, "Resposta correta! +€500", Toast.LENGTH_SHORT).show(); // e ira aparecer um pop up
+            nivelAtual++; // ira aumentara mais um nivel
             indicePerguntaAtual++;
 
-            if (nivelAtual == 15) {
-                Intent intent = new Intent(this, Ganhou.class);
-                intent.putExtra("pontos", nivelAtual);
-                intent.putExtra("dinheiro", premioAtual);
+            if (nivelAtual == 15) { // se ele estiver no nivel 15
+                Intent intent = new Intent(this, Ganhou.class); // ira ser enviado para a pagina final (Ganhou)
+                intent.putExtra("Nível", nivelAtual); // que ira mostrar o nível em que ele acabou
+                intent.putExtra("dinheiro", premioAtual); // bem como o dinheiro que ele ganhou
                 startActivity(intent);
                 finish();
             } else {
                 carregarPergunta();
             }
-        } else {
+        } else { // se ele errar alguma pergunta ira ser mandado para a pagina final (Perdeu)
             Intent intent = new Intent(this, Perdeu.class);
-            intent.putExtra("pontos", nivelAtual - 1);
-            intent.putExtra("dinheiro", premioAtual);
+            intent.putExtra("Nível", nivelAtual - 1); // que ira mostrar o nivel em que ele perdeu
+            intent.putExtra("dinheiro", premioAtual); // bem como o dinheiro que ele perdeu
             startActivity(intent);
             finish();
         }
     }
 
+    // Função da ajuda de 50/50
     private void aplicarAjuda5050() {
-        if (ajudaUsada) return;
+        if (ajudaUsada) return; // se a ajuda ja foi usado o jogador nao ira conseguir usar mais a ajuda
 
         int removidos = 0;
         for (MaterialButton botao : btnRespostas) {
-            if (!botao.getText().toString().equals(respostaCerta) && removidos < 2) {
-                botao.setVisibility(View.INVISIBLE);
+            if (!botao.getText().toString().equals(respostaCerta) && removidos < 2) { //ira remover 2 perguntas e ira mostrar a resposta certa e outra que estara errada
+                botao.setVisibility(View.INVISIBLE); // ira esconder as 2 perguntas que ira estar incorretas
                 removidos++;
             }
         }
 
-        ajudaUsada = true;
-        btnAjuda5050.setEnabled(false);
+        ajudaUsada = true; // se o botao ja foi usado
+        btnAjuda5050.setEnabled(false); // ira desabilitalo e o jogador nao ira poder usar mais
     }
 
+    // Função para trocar a pergunta
     private void trocarPergunta() {
         if (indicePerguntaAtual < perguntasAleatorias.size() - 1) {
             indicePerguntaAtual++;
@@ -184,8 +186,9 @@ public class Perguntas extends AppCompatActivity {
         }
     }
 
+    //Itent para desistir do jogo
     private void desistirJogo() {
-        startActivity(new Intent(this, MenuPrincipal.class));
+        startActivity(new Intent(this, MenuPrincipal.class)); // se o jogador carregar no botão de desistir ira ser levado para o Menu Principal
         finish();
     }
 
