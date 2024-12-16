@@ -24,10 +24,11 @@ public class Ganhou extends AppCompatActivity {
         Button menuButton = findViewById(R.id.menuButton);
 
         // Receber os pontos e o prêmio do intent
-        int pontos = getIntent().getIntExtra("pontos", 0);
+        int  nivel = getIntent().getIntExtra("niveis", 0);
         int dinheiro = getIntent().getIntExtra("dinheiro", 0);
 
         // Configurar os textos
+        txtMensagem.setText("Niveis Completados:" + nivel);
         txtMensagem.setText("Parabéns, você ganhou!");
         txtDinheiro.setText("Prêmio total: €" + dinheiro);
 
